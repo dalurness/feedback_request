@@ -36,7 +36,6 @@ export default function FeedbackForm() {
     function sendFeedback() {
         const response = sendFeedbackService({name, email, age, gender, country, rating, improvements})
         if (response) {
-            console.log(document.referrer)
             history.push("/feedback/thank-you", { referrer: document.referrer })
         } else {
             alert("Error saving feedback")

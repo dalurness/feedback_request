@@ -10,7 +10,7 @@ export default function SuccessPage() {
         window.close();
     }
 
-    let referrer = location.state.referrer
+    let referrer = location?.state?.referrer
     return (
         <Grid container justifyContent='center' style={{marginTop: "40px"}}>
             <Grid item xs={11} md={6}>
