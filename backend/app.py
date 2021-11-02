@@ -39,26 +39,18 @@ class Feedback(db.Model):
             'improvements': self.improvements   
         }
 
-@app.route('/feedback', methods=['GET', 'POST'])
+@app.route('/feedback', methods=['POST'])
 def addfeedback():
-    if request.method == "POST":
-        data = request.get_json(force=True)
+    data = request.get_json(force=True)
 
-        try:
-            new_feedback = Feedback(**data)
-            db.session.add(new_feedback)
-            db.session.commit()
-        except Exception as e:
-            return ({"message": "Unable to save feedback"}, 500)
+    try:
+        new_feedback = Feedback(**data)
+        db.session.add(new_feedback)
+        db.session.commit()
+    except Exception as e:
+        return ({"message": "Unable to save feedback"}, 500)
 
-        return ({}, 201)
-    else:
-        try:
-            feedback_list = Feedback.query.all()
-            feedback_list = [f.serialize for f in feedback_list]
-            return ({"feedback_list": feedback_list}, 200)
-        except Exception as e:
-            return ({"message": "failed to get feedback"}, 500)
+    return ({}, 201)
 
 @app.route('/marketing', methods=['GET'])
 def getmarketing():
@@ -85,5 +77,3 @@ def getmarketing():
     except Exception as e:
         print(e)
         return ({"message": "failed to get marketing data"}, 500)
-
-                

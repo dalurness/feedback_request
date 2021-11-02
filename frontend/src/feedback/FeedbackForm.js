@@ -1,12 +1,11 @@
 import { Button, Card, CardActions, CardContent, FormControl, Grid, IconButton, InputLabel, MenuItem, Select, Slider, TextField, Typography } from '@material-ui/core'
 import { Star, StarOutline } from '@material-ui/icons'
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { sendFeedbackService } from '../services'
 import countries from '../util/countries.json'
-import SuccessOverlay from './SuccessOverlay'
 
 export default function FeedbackForm() {
-
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [emailValid, setEmailValid] = useState(true)
@@ -16,7 +15,7 @@ export default function FeedbackForm() {
     const [country, setCountry] = useState("US")
     const [rating, setRating] = useState(3)
     const [improvements, setImprovements] = useState()
-    const [successOverlay, setSuccessOverlay] = useState(false)
+    const history = useHistory()
 
     function checkEmailValid(e) {
         const regexp =
@@ -37,7 +36,7 @@ export default function FeedbackForm() {
     function sendFeedback() {
         const response = sendFeedbackService({name, email, age, gender, country, rating, improvements})
         if (response) {
-            setSuccessOverlay(true)
+            history.push("/feedback/thank-you", { referrer: document.referrer })
         } else {
             alert("Error saving feedback")
         }
@@ -163,7 +162,6 @@ export default function FeedbackForm() {
                     </Card>
                 </Grid>
             </Grid>
-            <SuccessOverlay open={successOverlay} setOpen={setSuccessOverlay} />
         </>
     )
 }
