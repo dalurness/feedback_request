@@ -5,10 +5,11 @@ import { useLocation } from 'react-router-dom';
 export default function SuccessPage() {
     const location = useLocation()
 
-    function closeTab() {
-        window.open("about:blank", "_self");
-        window.close();
-    }
+    // function closeTab() {
+    //     // window.open("about:blank", "_self")
+    //     // window.close()
+
+    // }
 
     let referrer = location?.state?.referrer
     return (
@@ -25,8 +26,10 @@ export default function SuccessPage() {
                                     </a>
                                 </Grid>
                             }
-                            <Grid item xs={4} style={{textAlign: "center"}}>
-                                <Button onClick={() => closeTab()} variant="contained" color="primary">Close Tab</Button>
+                            <Grid item xs={5} md={6} style={{textAlign: "center"}}>
+                                <a href="https://ancestry.com">
+                                    <Button variant="contained" color="primary">Return to Ancestry</Button>
+                                </a>
                             </Grid>
                         </Grid>
                     </CardContent>
